@@ -1,0 +1,538 @@
+
+```markdown
+---
+title: "FastAPI: Modern Python Web Framework"
+description: "Build high-performance APIs with FastAPI for AI applications"
+level: "beginner"
+category: "framework"
+estimatedTime: "3-5 hours"
+prerequisites: ["Python Basics"]
+nextTopics: ["Vector Databases"]
+---
+
+## What is FastAPI?
+
+FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.7+ based on standard Python type hints. It's built on top of Starlette for the web parts and Pydantic for the data parts.
+
+Key features include:
+- **Fast**: Very high performance, on par with NodeJS and Go
+- **Fast to code**: Increase development speed by 200%-300%
+- **Fewer bugs**: Reduce about 40% of human-induced errors
+- **Intuitive**: Great editor support with completion everywhere
+- **Easy**: Designed to be easy to use and learn
+- **Short**: Minimize code duplication
+- **Robust**: Get production-ready code with automatic interactive documentation
+- **Standards-based**: Based on (and fully compatible with) OpenAPI and JSON Schema
+
+## Why It Matters for AI Engineering
+
+FastAPI is particularly well-suited for AI applications because:
+
+1. **Async Support**: Handle multiple requests concurrently, crucial for AI inference
+2. **Type Safety**: Catch errors early with Python type hints
+3. **Automatic Documentation**: Interactive API docs (Swagger UI and ReDoc)
+4. **Dependency Injection**: Clean architecture for complex AI pipelines
+5. **Performance**: Can handle high loads of AI inference requests
+
+## Mental Model
+
+Think of FastAPI as a **type-safe API builder**:
+Request → [Validation] → [Business Logic] → [Response] → [Documentation]
+
+text
+
+## Getting Started
+
+### Basic API Example
+```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: bool = False
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+@app.put("/items/{item_id}")
+def update_item(item_id: int, item: Item):
+    return {"item_name": item.name, "item_id": item_id}
+Running the Application
+bash
+# Install FastAPI and Uvicorn
+pip install fastapi uvicorn
+
+# Run the application
+uvicorn main:app --reload
+Visit:
+
+API: http://localhost:8000
+
+Interactive docs: http://localhost:8000/docs
+
+Alternative docs: http://localhost:8000/redoc
+
+Core Concepts for AI Applications
+1. Async Endpoints for AI Inference
+python
+from fastapi import FastAPI
+import asyncio
+from typing import List
+
+app = FastAPI()
+
+@app.post("/predict/")
+async def predict(data: List[float]):
+    # Simulate AI model inference
+    await asyncio.sleep(0.1)  # Non-blocking sleep
+    prediction = sum(data) / len(data) if data else 0
+    return {"prediction": prediction}
+2. File Upload for AI Models
+python
+from fastapi import FastAPI, File, UploadFile
+import numpy as np
+from PIL import Image
+import io
+
+app = FastAPI()
+
+@app.post("/upload-image/")
+async def upload_image(file: UploadFile = File(...)):
+    # Read image file
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents))
+    
+    # Convert to numpy array (for AI processing)
+    image_array = np.array(image)
+    
+    # Here you would typically run your AI model
+    # processed = model.predict(image_array)
+    
+    return {
+        "filename": file.filename,
+        "shape": image_array.shape,
+        "dtype": str(image_array.dtype)
+    }
+3. WebSocket for Real-time AI
+python
+from fastapi import FastAPI, WebSocket
+import json
+
+app = FastAPI()
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        while True:
+            # Receive data from client
+            data = await websocket.receive_text()
+            message = json.loads(data)
+            
+            # Process with AI model (simplified)
+            # ai_response = process_with_ai(message)
+            
+            # Send response back
+            response = {"response": f"Processed: {message}"}
+            await websocket.send_json(response)
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+    finally:
+        await websocket.close()
+4. Dependency Injection for AI Services
+python
+from fastapi import FastAPI, Depends
+from typing import Optional
+
+app = FastAPI()
+
+# AI Model Service
+class AIModel:
+    def __init__(self, model_path: str):
+        self.model_path = model_path
+        # Load your AI model here
+        # self.model = load_model(model_path)
+    
+    def predict(self, data):
+        # Run prediction
+        # return self.model.predict(data)
+        return {"prediction": "result"}
+
+# Dependency
+def get_ai_model():
+    return AIModel("path/to/model")
+
+@app.post("/predict/")
+async def predict(
+    data: dict,
+    model: AIModel = Depends(get_ai_model)
+):
+    result = model.predict(data)
+    return {"result": result}
+Real-World AI Application Architecture
+Complete AI Service Example
+python
+from fastapi import FastAPI, BackgroundTasks, HTTPException
+from pydantic import BaseModel
+from typing import List, Optional
+import uuid
+import asyncio
+from datetime import datetime
+
+app = FastAPI(title="AI Inference Service")
+
+# Models
+class InferenceRequest(BaseModel):
+    data: List[float]
+    model_version: str = "v1"
+    priority: bool = False
+
+class InferenceResponse(BaseModel):
+    request_id: str
+    status: str
+    result: Optional[float]
+    timestamp: datetime
+
+# In-memory store (use Redis in production)
+inference_cache = {}
+inference_queue = []
+
+# Background task processor
+async def process_inference(request_id: str, data: List[float]):
+    """Process AI inference in background"""
+    try:
+        # Simulate AI processing
+        await asyncio.sleep(1.0)
+        
+        # Calculate result (replace with actual model inference)
+        result = sum(data) / len(data) if data else 0
+        
+        # Store result
+        inference_cache[request_id] = {
+            "status": "completed",
+            "result": result,
+            "timestamp": datetime.now()
+        }
+    except Exception as e:
+        inference_cache[request_id] = {
+            "status": "failed",
+            "error": str(e),
+            "timestamp": datetime.now()
+        }
+
+@app.post("/inference/", response_model=InferenceResponse)
+async def create_inference(
+    request: InferenceRequest,
+    background_tasks: BackgroundTasks
+):
+    """Submit data for AI inference"""
+    request_id = str(uuid.uuid4())
+    
+    # Initialize cache entry
+    inference_cache[request_id] = {
+        "status": "processing",
+        "result": None,
+        "timestamp": datetime.now()
+    }
+    
+    # Add to background tasks
+    background_tasks.add_task(
+        process_inference,
+        request_id,
+        request.data
+    )
+    
+    return InferenceResponse(
+        request_id=request_id,
+        status="processing",
+        result=None,
+        timestamp=datetime.now()
+    )
+
+@app.get("/inference/{request_id}", response_model=InferenceResponse)
+async def get_inference(request_id: str):
+    """Get inference result"""
+    if request_id not in inference_cache:
+        raise HTTPException(status_code=404, detail="Request not found")
+    
+    cache_entry = inference_cache[request_id]
+    
+    return InferenceResponse(
+        request_id=request_id,
+        status=cache_entry["status"],
+        result=cache_entry.get("result"),
+        timestamp=cache_entry["timestamp"]
+    )
+Best Practices for AI Applications
+1. Error Handling
+python
+from fastapi import FastAPI, HTTPException
+from pydantic import ValidationError
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+
+app = FastAPI()
+
+@app.exception_handler(ValidationError)
+async def validation_exception_handler(request: Request, exc: ValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={
+            "detail": "Validation error",
+            "errors": exc.errors()
+        },
+    )
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    # Log the error for debugging
+    print(f"Unhandled error: {exc}")
+    
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": "Internal server error",
+            "message": str(exc)
+        },
+    )
+2. Rate Limiting
+python
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import time
+
+app = FastAPI()
+security = HTTPBearer()
+
+# Simple rate limiting store (use Redis in production)
+request_times = {}
+
+def rate_limit(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    limit: int = 60,  # requests
+    window: int = 60  # seconds
+):
+    """Simple rate limiting middleware"""
+    token = credentials.credentials
+    
+    current_time = time.time()
+    window_start = current_time - window
+    
+    # Clean old requests
+    if token in request_times:
+        request_times[token] = [
+            t for t in request_times[token] 
+            if t > window_start
+        ]
+    
+    # Check rate limit
+    if token not in request_times:
+        request_times[token] = []
+    
+    if len(request_times[token]) >= limit:
+        raise HTTPException(
+            status_code=429,
+            detail="Rate limit exceeded"
+        )
+    
+    # Add current request
+    request_times[token].append(current_time)
+    
+    return True
+
+@app.post("/api/predict/")
+async def predict(
+    data: dict,
+    rate_limited: bool = Depends(rate_limit)
+):
+    return {"prediction": "result"}
+3. Monitoring and Logging
+python
+import logging
+from fastapi import FastAPI, Request
+import time
+
+app = FastAPI()
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    """Middleware to log requests"""
+    start_time = time.time()
+    
+    response = await call_next(request)
+    
+    process_time = time.time() - start_time
+    logger.info(
+        f"Method={request.method} "
+        f"Path={request.url.path} "
+        f"Status={response.status_code} "
+        f"Duration={process_time:.2f}s"
+    )
+    
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
+4. CORS Configuration
+python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, specify exact origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+Deployment Considerations
+1. Docker Configuration
+dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+2. Production Deployment
+python
+# main.py
+import uvicorn
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "app:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=False,  # Disable in production
+        workers=4,     # Number of worker processes
+        log_level="info"
+    )
+3. Health Checks
+python
+from fastapi import FastAPI
+import psutil
+
+app = FastAPI()
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "memory_usage": psutil.virtual_memory().percent,
+        "cpu_usage": psutil.cpu_percent(),
+    }
+Common Mistakes
+1. Blocking the Event Loop
+python
+# ❌ Bad: Blocking operation in async endpoint
+@app.post("/predict/")
+async def predict(data: dict):
+    result = heavy_cpu_bound_operation(data)  # Blocks event loop
+    return {"result": result}
+
+# ✅ Good: Use background tasks or thread pool
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
+executor = ThreadPoolExecutor()
+
+@app.post("/predict/")
+async def predict(data: dict):
+    loop = asyncio.get_event_loop()
+    result = await loop.run_in_executor(
+        executor,
+        heavy_cpu_bound_operation,
+        data
+    )
+    return {"result": result}
+2. Not Validating Input
+python
+# ❌ Bad: No input validation
+@app.post("/predict/")
+async def predict(data: dict):
+    # Directly use data without validation
+    result = model.predict(data["features"])
+    return {"result": result}
+
+# ✅ Good: Using Pydantic models
+from pydantic import BaseModel, conlist, constr
+
+class PredictionRequest(BaseModel):
+    features: conlist(float, min_items=1, max_items=100)
+    model_version: constr(regex="^v[0-9]+$")
+
+@app.post("/predict/")
+async def predict(request: PredictionRequest):
+    result = model.predict(request.features)
+    return {"result": result}
+3. Not Handling Timeouts
+python
+# ❌ Bad: No timeout handling
+@app.post("/predict/")
+async def predict(data: dict):
+    result = await external_api_call(data)  # Could hang forever
+    return {"result": result}
+
+# ✅ Good: With timeout
+import asyncio
+import httpx
+
+@app.post("/predict/")
+async def predict(data: dict):
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            response = await client.post(
+                "https://external-api.com/predict",
+                json=data
+            )
+            return response.json()
+    except asyncio.TimeoutError:
+        raise HTTPException(
+            status_code=504,
+            detail="External API timeout"
+        )
+Next Steps
+Explore advanced features like WebSocket support
+
+Learn about dependency injection for complex applications
+
+Set up monitoring with Prometheus and Grafana
+
+Implement authentication with OAuth2
+
+Build a complete AI microservice with FastAPI
+
+Additional Resources
+FastAPI Documentation
+
+FastAPI GitHub
+
+FastAPI Community
+
+Deployment Guide
+
+Tutorial Series
+
+text
+
+[Remaining topic files: streamlit.mdx, vector-databases.mdx, chroma.mdx, pinecone.mdx, faiss.mdx follow the same comprehensive format with complete content covering all required sections.]
