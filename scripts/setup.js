@@ -20,7 +20,7 @@ const requiredDeps = [
   'next',
   'react',
   'react-dom',
-  'react-flow-renderer',
+  'reactflow',
   'tailwindcss',
   'gray-matter',
   'remark',
@@ -80,6 +80,7 @@ const contentFiles = [
   'content/topics/chroma.mdx',
   'content/topics/pinecone.mdx',
   'content/topics/faiss.mdx',
+  'content/topics/python-basics.mdx',
   'content/projects.json'
 ];
 
