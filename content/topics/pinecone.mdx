@@ -1,0 +1,47 @@
+---
+title: "Pinecone: Managed Vector Database"
+description: "Learn to use Pinecone for scalable production vector search"
+level: "intermediate"
+category: "database"
+estimatedTime: "3-4 hours"
+prerequisites: ["Vector Databases"]
+nextTopics: ["LangChain"]
+---
+
+# Pinecone
+
+Pinecone is a managed vector database that makes it easy to build high-performance vector search applications.
+
+## Features
+
+- **Managed**: No infrastructure to manage.
+- **Scalable**: Scales from zero to billions of vectors.
+- **Fast**: Low latency search.
+- **Fresh**: Real-time updates.
+
+## Getting Started
+
+```python
+import pinecone
+
+pinecone.init(api_key="YOUR_API_KEY", environment="us-west1-gcp")
+
+# Create index
+pinecone.create_index("quickstart", dimension=8, metric="euclidean")
+
+# Connect to index
+index = pinecone.Index("quickstart")
+
+# Upsert vectors
+index.upsert([
+    ("A", [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]),
+    ("B", [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2])
+])
+
+# Query
+index.query(
+    vector=[0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
+    top_k=2,
+    include_values=True
+)
+```

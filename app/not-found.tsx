@@ -16,7 +16,7 @@ export default function NotFound() {
       </h1>
       
       <p className="text-xl text-gray-600 max-w-md mb-8">
-        The page you're looking for doesn't exist or has been moved. Let's get you back on track.
+        The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s get you back on track.
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-lg w-full mb-8">
@@ -55,7 +55,7 @@ export default function NotFound() {
       </div>
       
       <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 max-w-md">
-        <h3 className="font-semibold text-gray-900 mb-3">Can't find what you need?</h3>
+        <h3 className="font-semibold text-gray-900 mb-3">Can&apos;t find what you need?</h3>
         <p className="text-gray-600 mb-4">
           Our learning platform is constantly growing. Check back soon for new content, or suggest a topic.
         </p>

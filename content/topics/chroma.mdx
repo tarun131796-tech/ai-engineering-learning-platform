@@ -1,0 +1,45 @@
+---
+title: "Chroma: Open-Source Embedding Database"
+description: "Learn how to use Chroma for local embedding storage and retrieval"
+level: "beginner"
+category: "database"
+estimatedTime: "2-3 hours"
+prerequisites: ["Vector Databases", "Python Basics"]
+nextTopics: ["Pinecone", "FAISS"]
+---
+
+# Chroma: The AI-Native Open-Source Embedding Database
+
+Chroma is an AI-native open-source embedding database. It comes with everything you need to get started built-in, and runs on your machine.
+
+## Key Features
+
+- **Open Source**: Apache 2.0 licensed.
+- **Easy to use**: Simple Python and JavaScript/TypeScript clients.
+- **Rich integrations**: Works with LangChain, LlamaIndex, OpenAI, etc.
+- **Fast**: Built for performance.
+
+## Getting Started
+
+```python
+import chromadb
+
+# Setup Chroma
+client = chromadb.Client()
+
+# Create a collection
+collection = client.create_collection("my_collection")
+
+# Add documents
+collection.add(
+    documents=["This is a document", "This is another document"],
+    metadatas=[{"source": "my_source"}, {"source": "my_source"}],
+    ids=["id1", "id2"]
+)
+
+# Query
+results = collection.query(
+    query_texts=["This is a query document"],
+    n_results=2
+)
+```
