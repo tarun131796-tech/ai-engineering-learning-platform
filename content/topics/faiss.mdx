@@ -1,0 +1,46 @@
+---
+title: "FAISS: Efficient Similarity Search"
+description: "Master Facebook AI Similarity Search for large-scale vector retrieval"
+level: "advanced"
+category: "database"
+estimatedTime: "4-6 hours"
+prerequisites: ["Vector Databases", "Python Basics"]
+nextTopics: ["LangChain"]
+---
+
+# FAISS (Facebook AI Similarity Search)
+
+FAISS is a library for efficient similarity search and clustering of dense vectors. It contains algorithms that search in sets of vectors of any size, up to ones that possibly do not fit in RAM.
+
+## Key Concepts
+
+- **Index**: The core data structure in FAISS.
+- **Metric**: Distance metric (L2, Inner Product).
+- **Training**: Some indexes require training on representative data.
+
+## Basic Usage
+
+```python
+import faiss
+import numpy as np
+
+# Dimension of the vectors
+d = 64
+
+# Generate some data
+nb = 100000
+nq = 10000
+np.random.seed(1234)
+xb = np.random.random((nb, d)).astype('float32')
+xq = np.random.random((nq, d)).astype('float32')
+
+# Build the index
+index = faiss.IndexFlatL2(d)
+index.add(xb)
+
+# Search
+k = 4
+D, I = index.search(xq, k)
+print(I[:5])
+print(D[:5])
+```

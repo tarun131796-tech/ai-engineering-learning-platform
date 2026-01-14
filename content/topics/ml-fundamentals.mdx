@@ -1,0 +1,57 @@
+---
+title: "ML Fundamentals"
+description: "Introduction to Machine Learning concepts, types of learning, and key terminology"
+level: "beginner"
+category: "foundation"
+estimatedTime: "4 hours"
+prerequisites: ["Python Visualization"]
+nextTopics: ["FastAPI", "Streamlit"]
+---
+
+# Machine Learning Fundamentals
+
+Machine Learning (ML) is the science of getting computers to act without being explicitly programmed.
+
+## 1. Types of Machine Learning
+
+### Supervised Learning
+The model learns from labeled data.
+- **Regression**: Predicting a continuous value (e.g., House prices).
+- **Classification**: Predicting a category (e.g., Spam or Not Spam).
+
+### Unsupervised Learning
+The model learns from unlabeled data.
+- **Clustering**: Grouping similar data points (e.g., Customer segmentation).
+- **Dimensionality Reduction**: Reducing the number of features (e.g., PCA).
+
+### Reinforcement Learning
+The model learns by interacting with an environment and receiving rewards or penalties.
+
+## 2. Key Terminology
+
+- **Feature**: An input variable used for making predictions (e.g., square footage).
+- **Label (Target)**: The output variable to predict (e.g., house price).
+- **Training Set**: The dataset used to train the model.
+- **Test Set**: The dataset used to evaluate the model's performance.
+- **Overfitting**: When a model learns the training data too well (including noise) and fails to generalize.
+- **Underfitting**: When a model is too simple to capture the underlying pattern.
+
+## 3. The ML Workflow
+
+1.  **Problem Definition**: What are we trying to predict?
+2.  **Data Collection**: Gathering raw data.
+3.  **Data Preprocessing**: Cleaning and formatting data (handled by Pandas/NumPy).
+4.  **Model Selection**: Choosing an algorithm (Linear Regression, Decision Tree, Neural Net).
+5.  **Training**: optimizing the model parameters.
+6.  **Evaluation**: Measuring performance metrics (Accuracy, MSE).
+7.  **Deployment**: Serving the model (e.g., via FastAPI).
+
+## 4. Common Algorithms
+
+- **Linear Regression**: Fits a line to data.
+- **Logistic Regression**: Used for binary classification.
+- **Decision Trees**: Tree-like model of decisions.
+- **Random Forest**: Ensemble of decision trees.
+- **Neural Networks**: Inspired by the human brain, used for complex tasks (images, text).
+
+In the next sections, we will explore how to serve these models using frameworks like FastAPI and Streamlit.

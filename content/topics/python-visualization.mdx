@@ -1,0 +1,76 @@
+---
+title: "Python Visualization"
+description: "Visualizing data and model performance with Matplotlib"
+level: "intermediate"
+category: "data-science"
+estimatedTime: "3 hours"
+prerequisites: ["Pandas for Data Manipulation"]
+nextTopics: ["ML Fundamentals"]
+---
+
+# Visualization
+
+Visualizing data distributions and training curves is essential for debugging AI models.
+
+## 1. Matplotlib Basics
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title("Sine Wave")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+plt.show()
+```
+
+## 2. Scatter Plots
+
+Useful for visualizing classification boundaries or clusters.
+
+```python
+x = np.random.randn(100)
+y = np.random.randn(100)
+
+plt.scatter(x, y, alpha=0.5)
+plt.show()
+```
+
+## 3. Histograms
+
+Understanding data distribution.
+
+```python
+data = np.random.randn(1000)
+plt.hist(data, bins=30)
+plt.show()
+```
+
+## 4. Subplots
+
+Viewing multiple graphs at once (e.g., Loss and Accuracy).
+
+```python
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+
+ax1.plot(loss_history)
+ax1.set_title("Loss")
+
+ax2.plot(acc_history)
+ax2.set_title("Accuracy")
+
+plt.show()
+```
+
+## 5. Showing Images
+
+```python
+# Assuming 'img' is a NumPy array (H, W, C)
+plt.imshow(img)
+plt.axis("off") # Hide axes
+plt.show()
+```

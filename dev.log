@@ -1,0 +1,14 @@
+
+> ai-engineering-learning-platform@1.0.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling /topics/[slug] ...
+ ✓ Compiled /topics/[slug] in 9.3s (967 modules)
+ ✓ Compiled in 764ms (446 modules)
+ GET /topics/python-environment 200 in 11197ms
+ ✓ Compiled in 539ms (446 modules)

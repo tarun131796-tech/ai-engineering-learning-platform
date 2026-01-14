@@ -1,0 +1,95 @@
+---
+title: "Python Environment for AI"
+description: "Setting up a robust Python development environment for AI Engineering"
+level: "beginner"
+category: "foundation"
+estimatedTime: "2-3 hours"
+prerequisites: []
+nextTopics: ["Python Core Concepts"]
+---
+
+# Setting Up Your AI Development Environment
+
+A professional AI development environment is the foundation of your productivity. In this guide, we'll cover how to set up Python, manage virtual environments, and use tools like Jupyter and VS Code.
+
+## 1. Python Installation
+
+While Python comes pre-installed on many systems, we recommend using a version manager or a distribution like Anaconda for data science.
+
+### Using Anaconda (Recommended for Beginners)
+Anaconda comes with most AI libraries (NumPy, Pandas, Scikit-learn) pre-installed.
+
+1. Download Anaconda Installer from [anaconda.com](https://www.anaconda.com/download)
+2. Run the installer
+3. Verify installation:
+   ```bash
+   conda --version
+   python --version
+   ```
+
+## 2. Virtual Environments
+
+Virtual environments isolate your project dependencies, ensuring that different projects don't conflict with each other.
+
+### Using `conda`
+```bash
+# Create a new environment named 'ai-env' with Python 3.10
+conda create -n ai-env python=3.10
+
+# Activate the environment
+conda activate ai-env
+
+# Deactivate when done
+conda deactivate
+```
+
+### Using `venv` (Standard Library)
+```bash
+# Create a virtual environment named 'venv'
+python -m venv venv
+
+# Activate (Windows)
+.\venv\Scripts\activate
+
+# Activate (Mac/Linux)
+source venv/bin/activate
+```
+
+## 3. Package Management
+
+Once your environment is active, you install packages using `pip` or `conda`.
+
+```bash
+# Installing AI essentials
+pip install numpy pandas matplotlib scikit-learn jupyter notebook
+
+# Installing Deep Learning frameworks
+pip install torch torchvision torchaudio
+```
+
+## 4. Jupyter Notebooks
+
+Jupyter Notebooks are the standard tool for data exploration and experimentation.
+
+```bash
+# Start Jupyter
+jupyter notebook
+```
+
+This will open a web interface where you can write and execute Python code in "cells".
+
+### Key Shortcuts
+- `Shift + Enter`: Run cell and advance
+- `Esc + A`: Insert cell above
+- `Esc + B`: Insert cell below
+- `Esc + D + D`: Delete cell
+
+## 5. VS Code Setup
+
+Visual Studio Code is the industry-standard editor for Python.
+
+1. Install **VS Code**
+2. Install the **Python Extension**
+3. Select your interpreter: `Cmd/Ctrl + Shift + P` -> `Python: Select Interpreter` -> Choose your `ai-env`
+
+Now you are ready to write professional Python code!

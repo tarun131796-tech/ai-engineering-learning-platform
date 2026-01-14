@@ -1,0 +1,82 @@
+---
+title: "Python Functions & Modules"
+description: "Writing reusable code and organizing AI projects"
+level: "intermediate"
+category: "foundation"
+estimatedTime: "3 hours"
+prerequisites: ["Python Data Structures"]
+nextTopics: ["Python Object-Oriented Programming"]
+---
+
+# Functions and Modules
+
+As your AI projects grow, you need to structure your code into functions and modules.
+
+## 1. Functions
+
+Encapsulate logic.
+
+```python
+def calculate_metrics(predictions, labels):
+    """
+    Calculates accuracy.
+    """
+    correct = sum([p == l for p, l in zip(predictions, labels)])
+    total = len(labels)
+    return correct / total
+
+preds = [0, 1, 1, 0]
+truth = [0, 1, 0, 0]
+acc = calculate_metrics(preds, truth)
+print(f"Accuracy: {acc}")
+```
+
+### *Args and **Kwargs
+Flexible arguments are often used in model wrappers.
+
+```python
+def custom_layer(input_tensor, **options):
+    if options.get("normalize"):
+        print("Normalizing...")
+    # ... logic
+```
+
+## 2. Lambda Functions
+
+Anonymous small functions, often used with `map` or `filter`, or in pandas.
+
+```python
+activation = lambda x: max(0, x)  # ReLU
+print(activation(-5)) # 0
+```
+
+## 3. Modules and Imports
+
+Organize code into files.
+
+`model.py`:
+```python
+def get_model():
+    return "ModelInstance"
+```
+
+`main.py`:
+```python
+from model import get_model
+
+m = get_model()
+```
+
+## 4. Standard Libraries for AI
+
+- `os`: File path manipulation.
+- `json`: Saving/loading configurations.
+- `pickle`: Serializing Python objects.
+- `math`: Basic mathematical functions.
+
+```python
+import os
+import json
+
+data_path = os.path.join("data", "train.csv")
+```

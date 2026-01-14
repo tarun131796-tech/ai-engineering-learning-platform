@@ -34,24 +34,29 @@ A comprehensive learning platform for AI Engineering, from Zero to Pro. Built wi
    ```bash
    git clone <repository-url>
    cd ai-engineering-learning-platform
+   ```
 
-Install dependencies
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-bash
-npm install
-Run setup script (optional but recommended)
+3. **Run setup script** (optional but recommended)
+   ```bash
+   npm run setup
+   ```
 
-bash
-npm run setup
-Start development server
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-bash
-npm run dev
-Open your browser
-Navigate to http://localhost:3000
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-Project Structure
-text
+## Project Structure
+
+```text
 project/
 ├── app/                    # Next.js App Router pages
 │   ├── layout.tsx         # Root layout
@@ -79,13 +84,16 @@ project/
 ├── styles/              # Custom styles
 ├── public/              # Static assets
 └── scripts/             # Build and setup scripts
-Content Management
-Adding New Topics
-Create a new .mdx file in content/topics/
+```
+
+## Content Management
+
+### Adding New Topics
+Create a new `.mdx` file in `content/topics/`
 
 Use the following frontmatter structure:
 
-yaml
+```yaml
 ---
 title: "Topic Title"
 description: "Brief description"
@@ -95,14 +103,15 @@ estimatedTime: "X-Y hours"
 prerequisites: ["prereq1", "prereq2"]
 nextTopics: ["next-topic1", "next-topic2"]
 ---
-Write content using Markdown with code examples
+```
+Write content using Markdown with code examples.
 
-Adding New Projects
-Add a new project object to content/projects.json
+### Adding New Projects
+Add a new project object to `content/projects.json`
 
 Follow the existing structure:
 
-json
+```json
 {
   "id": "unique-id",
   "title": "Project Title",
@@ -116,54 +125,46 @@ json
   "prerequisites": ["prereq1", "prereq2"],
   "githubUrl": "https://github.com/..."
 }
-Development
-Available Scripts
-npm run dev - Start development server
+```
 
-npm run build - Build for production
+## Development
 
-npm start - Start production server
+### Available Scripts
 
-npm run lint - Run ESLint
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run setup` - Run setup and verification script
 
-npm run setup - Run setup and verification script
+### Development Guidelines
 
-Development Guidelines
-Type Safety: Always use TypeScript with proper types
+- **Type Safety**: Always use TypeScript with proper types
+- **Component Design**: Use functional components with hooks
+- **Styling**: Use Tailwind CSS utility classes
+- **Performance**: Use Next.js optimizations (Image, Link, etc.)
+- **Accessibility**: Follow WCAG guidelines
+- **SEO**: Use semantic HTML and proper meta tags
 
-Component Design: Use functional components with hooks
+## Deployment
 
-Styling: Use Tailwind CSS utility classes
+### Vercel (Recommended)
+1. Push your code to GitHub, GitLab, or Bitbucket
+2. Import your repository on Vercel
+3. Vercel will automatically detect Next.js and configure everything
+4. Your site will be deployed and live
 
-Performance: Use Next.js optimizations (Image, Link, etc.)
-
-Accessibility: Follow WCAG guidelines
-
-SEO: Use semantic HTML and proper meta tags
-
-Deployment
-Vercel (Recommended)
-Push your code to GitHub, GitLab, or Bitbucket
-
-Import your repository on Vercel
-
-Vercel will automatically detect Next.js and configure everything
-
-Your site will be deployed and live
-
-Other Platforms
+### Other Platforms
 The project can be deployed to any platform that supports Next.js:
+- **Netlify**: Use `next build` and deploy the output
+- **AWS**: Use Amplify or deploy to EC2/ECS
+- **Docker**: Build using the included Docker configuration
 
-Netlify: Use next build and deploy the output
+## Environment Variables
 
-AWS: Use Amplify or deploy to EC2/ECS
+Create a `.env.local` file for local development:
 
-Docker: Build using the included Docker configuration
-
-Environment Variables
-Create a .env.local file for local development:
-
-bash
+```bash
 # API Keys (optional for local development)
 # OPENAI_API_KEY=your-openai-api-key
 # LANGCHAIN_API_KEY=your-langsmith-api-key
@@ -174,32 +175,26 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # Development
 NODE_ENV=development
-Content Topics Covered
-LangChain - Building LLM applications
+```
 
-LangGraph - Stateful multi-actor applications
+## Content Topics Covered
 
-LangSmith - Debugging, testing, and monitoring
+- **Python for AI** - Comprehensive course from Environment to OOP, NumPy, and Pandas
+- **Machine Learning Fundamentals** - Core concepts, algorithms, and workflows
+- **LangChain** - Building LLM applications
+- **LangGraph** - Stateful multi-actor applications
+- **LangSmith** - Debugging, testing, and monitoring
+- **FastAPI** - Modern Python web framework
+- **Streamlit** - Rapid web apps for ML
+- **Vector Databases** - Overview and concepts
+- **Chroma** - Open-source embedding database
+- **Pinecone** - Managed vector database
+- **FAISS** - Facebook AI Similarity Search
 
-FastAPI - Modern Python web framework
+## Contributing
 
-Streamlit - Rapid web apps for ML
-
-Vector Databases - Overview and concepts
-
-Chroma - Open-source embedding database
-
-Pinecone - Managed vector database
-
-FAISS - Facebook AI Similarity Search
-
-Contributing
-Fork the repository
-
-Create a feature branch
-
-Make your changes
-
-Test thoroughly
-
-Submit a pull request
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request

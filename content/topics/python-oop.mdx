@@ -1,0 +1,82 @@
+---
+title: "Python Object-Oriented Programming"
+description: "Classes and Objects: The structure of deep learning models"
+level: "intermediate"
+category: "foundation"
+estimatedTime: "5 hours"
+prerequisites: ["Python Functions & Modules"]
+nextTopics: ["NumPy for AI"]
+---
+
+# Object-Oriented Programming (OOP)
+
+In frameworks like PyTorch and Keras, every model is a class. Understanding OOP is non-negotiable.
+
+## 1. Classes and Objects
+
+A class is a blueprint; an object is an instance.
+
+```python
+class NeuralNetwork:
+    def __init__(self, layers):
+        self.layers = layers  # Instance variable
+
+    def forward(self, x):
+        print(f"Passing input through {self.layers} layers")
+        return x
+
+model = NeuralNetwork(5)
+output = model.forward("input_data")
+```
+
+## 2. Inheritance
+
+Creating specific versions of generic classes. In PyTorch, custom models inherit from `nn.Module`.
+
+```python
+class Model:
+    def predict(self, x):
+        raise NotImplementedError
+
+class LinearRegression(Model):
+    def predict(self, x):
+        return x * 2 + 1
+
+lr = LinearRegression()
+print(lr.predict(5))
+```
+
+## 3. Dunder Methods
+
+Special methods like `__init__`, `__len__`, `__getitem__`.
+These are heavily used in creating custom Datasets.
+
+```python
+class CustomDataset:
+    def __init__(self, data):
+        self.data = data
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        return self.data[idx]
+
+ds = CustomDataset([10, 20, 30])
+print(len(ds))    # 3
+print(ds[1])      # 20
+```
+
+## 4. Encapsulation
+
+Hiding internal state.
+
+```python
+class Optimizer:
+    def __init__(self):
+        self._learning_rate = 0.01 # Convention for private
+
+    def set_lr(self, new_lr):
+        if new_lr > 0:
+            self._learning_rate = new_lr
+```

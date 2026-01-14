@@ -1,0 +1,77 @@
+---
+title: "NumPy for AI"
+description: "The fundamental package for scientific computing with Python"
+level: "intermediate"
+category: "data-science"
+estimatedTime: "5 hours"
+prerequisites: ["Python Object-Oriented Programming"]
+nextTopics: ["Pandas for Data Manipulation"]
+---
+
+# NumPy (Numerical Python)
+
+NumPy provides support for arrays and matrices, along with a collection of mathematical functions to operate on these arrays. It is the engine under the hood of almost all AI libraries.
+
+## 1. Arrays vs Lists
+
+NumPy arrays are faster and more compact than Python lists.
+
+```python
+import numpy as np
+
+# Creating an array
+arr = np.array([1, 2, 3, 4, 5])
+print(arr.shape) # (5,)
+```
+
+## 2. Array Operations
+
+Operations are "vectorized" - they happen to the whole array at once without loops.
+
+```python
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+print(a + b)  # [5, 7, 9]
+print(a * 2)  # [2, 4, 6]
+```
+
+## 3. Multi-dimensional Arrays (Matrices)
+
+Crucial for representing images (Height x Width x Channels) or batches of data.
+
+```python
+matrix = np.array([[1, 2], [3, 4]])
+print(matrix.shape) # (2, 2)
+```
+
+## 4. Indexing and Slicing
+
+```python
+data = np.random.rand(5, 5) # 5x5 random matrix
+
+# Get row 0
+print(data[0, :])
+
+# Get column 1
+print(data[:, 1])
+```
+
+## 5. Broadcasting
+
+Arithmetic between arrays of different shapes.
+
+```python
+a = np.array([[1, 2, 3], [4, 5, 6]]) # 2x3
+b = np.array([1, 0, 1])              # 1x3
+
+# b is added to each row of a
+print(a + b)
+```
+
+## 6. Key Functions for AI
+
+- `np.dot()`: Matrix multiplication
+- `np.argmax()`: Finding the class with highest probability
+- `np.reshape()`: Changing dimensions (e.g., flattening an image)
+- `np.mean()`, `np.std()`: Normalization statistics

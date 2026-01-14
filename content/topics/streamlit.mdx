@@ -1,0 +1,39 @@
+---
+title: "Streamlit: Rapid Web Apps for ML"
+description: "Create interactive data apps in minutes with Streamlit"
+level: "beginner"
+category: "tool"
+estimatedTime: "2-4 hours"
+prerequisites: ["Python Basics"]
+nextTopics: ["FastAPI"]
+---
+
+# Streamlit
+
+Streamlit is an open-source Python library that makes it easy to create and share beautiful, custom web apps for machine learning and data science.
+
+## Why Streamlit?
+
+- **Simple**: Write apps like scripts.
+- **Fast**: Fast iteration loop.
+- **Interactive**: Built-in widgets.
+- **Sharable**: Easy to deploy.
+
+## Hello World
+
+```python
+import streamlit as st
+
+st.title("Hello World")
+
+st.write("Here's our first attempt at using data to create a table:")
+st.write({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40]
+})
+
+if st.button('Say hello'):
+    st.write('Why hello there')
+else:
+    st.write('Goodbye')
+```
