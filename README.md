@@ -179,6 +179,7 @@ NODE_ENV=development
 
 ## Content Topics Covered
 
+- **Python Basics** - Essential Python programming concepts for AI
 - **LangChain** - Building LLM applications
 - **LangGraph** - Stateful multi-actor applications
 - **LangSmith** - Debugging, testing, and monitoring
