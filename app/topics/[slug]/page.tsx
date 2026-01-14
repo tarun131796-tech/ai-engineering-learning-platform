@@ -62,7 +62,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
             <h1 className="text-4xl font-bold text-gray-900 mb-2">{topic.title}</h1>
             <div className="flex items-center space-x-4">
               <span className={`px-3 py-1 rounded-full font-medium ${levelColors[topic.level]}`}>
-                {topic.level.charAt(0).toUpperCase() + topic.level.slice(1)}
+                {topic.level ? topic.level.charAt(0).toUpperCase() + topic.level.slice(1) : 'Beginner'}
               </span>
               <span className="text-gray-600">•</span>
               <div className="flex items-center text-gray-600">
@@ -143,7 +143,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
               <Target className="h-5 w-5 text-primary-600" />
             </div>
             <p className="text-sm text-primary-700">
-              Apply what you've learned with hands-on projects
+              Apply what you&apos;ve learned with hands-on projects
             </p>
           </Link>
         </div>

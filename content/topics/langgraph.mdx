@@ -1,0 +1,41 @@
+---
+title: "LangGraph: Stateful Multi-Actor Applications"
+description: "Build stateful, multi-actor applications with LangGraph"
+level: "advanced"
+category: "framework"
+estimatedTime: "5-8 hours"
+prerequisites: ["LangChain", "Python Basics"]
+nextTopics: ["LangSmith"]
+---
+
+# LangGraph
+
+LangGraph is a library for building stateful, multi-actor applications with LLMs. It extends LangChain to allow for cycles in your chains, enabling agent-like behaviors.
+
+## Core Concepts
+
+- **State**: The central object that is passed around.
+- **Nodes**: Functions that modify the state.
+- **Edges**: Control flow between nodes.
+
+## Example
+
+```python
+from langgraph.graph import StateGraph, END
+from typing import TypedDict, Annotated
+import operator
+
+class AgentState(TypedDict):
+    messages: Annotated[list[str], operator.add]
+
+def agent(state):
+    # Agent logic here
+    return {"messages": ["Agent message"]}
+
+workflow = StateGraph(AgentState)
+workflow.add_node("agent", agent)
+workflow.set_entry_point("agent")
+workflow.add_edge("agent", END)
+
+app = workflow.compile()
+```

@@ -26,7 +26,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
           <h3 className="text-xl font-bold text-gray-900 mb-2">{topic.title}</h3>
           <div className="flex items-center space-x-3">
             <span className={`${levelBadgeColors[topic.level]}`}>
-              {topic.level.charAt(0).toUpperCase() + topic.level.slice(1)}
+              {topic.level ? topic.level.charAt(0).toUpperCase() + topic.level.slice(1) : 'Beginner'}
             </span>
             <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
               {topic.category}
